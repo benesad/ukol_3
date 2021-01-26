@@ -1,6 +1,6 @@
 import argparse
 from File import File
-
+from Polylines import Polylines
 
 """Nacte soubor jako parametr za pomoci modulu Argparse."""
 parser = argparse.ArgumentParser()
@@ -12,7 +12,7 @@ if args.file != None and args.lenght != None and args.output != None:
     input_file = File(args.file)
     output_file = File(args.output)
     data = input_file.read()
-    create_polylines(data)
+    polylines = Polylines(data)
 else:
     print("Nezadali jste povinné argumenty (-f pro vstupní geojson, -l pro maximiální délku úsečky a -o pro výstupní geojson")
     exit()

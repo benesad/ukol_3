@@ -1,8 +1,8 @@
 from math import sqrt
 
 class Line:
-    def __init__(self):
-        self.point1 = None
+    def __init__(self, point1=None):
+        self.point1 = point1
         self.point2 = None
         self.length = None
 
