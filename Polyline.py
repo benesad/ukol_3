@@ -2,8 +2,12 @@ from Point import Point
 from Line import Line
 
 class Polyline:
-    def __init__(self, data_of_points):
+    def __init__(self, data_of_points=None):
         self.lines = []
+        if data_of_points!=None:
+            self.parse(data_of_points)
+
+    def parse(self, data_of_points):
         tmpLine = Line()
         for data_point in data_of_points:
             point = Point(data_point[0], data_point[1])
@@ -13,3 +17,9 @@ class Polyline:
                 tmpLine = Line(point)
             else: 
                 tmpLine.set_point1(point)
+
+    def addLine(self, line):
+        self.lines.append(line)
+
+    def divide_long_segments(self, max_length):
+        return None
