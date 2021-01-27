@@ -44,7 +44,7 @@ class Line:
             self.compute_middle_point()
             polyline.addLine(Line(self.point1, self.middle_point))
             polyline.addLine(Line(self.middle_point, self.point2))
-            return polyline
+            return polyline.divide_long_segments(max_length)
 
         polyline.addLine(self)
         return polyline

@@ -12,5 +12,5 @@ class Polylines:
                 polyline = Polyline(data_polyline["geometry"]["coordinates"])
                 self.polylinesStorage.append(polyline)
             except KeyError:
-                print("Atribut pro výpočet chybí")
+                print("Atribut pro vypocet chybi")
                 exit()

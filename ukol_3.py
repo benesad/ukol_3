@@ -14,5 +14,5 @@ if args.file != None and args.lenght != None and args.output != None:
     data = input_file.read()
     polylines = Polylines(data)
 else:
-    print("Nezadali jste povinné argumenty (-f pro vstupní geojson, -l pro maximiální délku úsečky a -o pro výstupní geojson")
+    print("Nezadali jste povinne argumenty (-f pro vstupni geojson, -l pro maximialni délku usecky a -o pro vystupni geojson")
     exit()
