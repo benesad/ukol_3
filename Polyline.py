@@ -1,25 +1,48 @@
 from Point import Point
-from Line import Line
+import Line
 
 class Polyline:
-    def __init__(self, data_of_points=None):
+    def __init__(self, data=None):
         self.lines = []
-        if data_of_points!=None:
-            self.parse(data_of_points)
+        self.data = data
+        if data!=None:
+            self.parse()
 
-    def parse(self, data_of_points):
-        tmpLine = Line()
-        for data_point in data_of_points:
+    def parse(self):
+        tmpLine = Line.Line()
+        for data_point in self.data["geometry"]["coordinates"]:
             point = Point(data_point[0], data_point[1])
-            if tmpLine.is_set_point1()==True:
-                tmpLine.set_point2(point)
-                self.lines.append(tmpLine)
-                tmpLine = Line(point)
+            if tmpLine.point1!=None:
+                tmpLine.point2 = point
+                self.add_line(tmpLine)
+                tmpLine = Line.Line(point)
             else: 
-                tmpLine.set_point1(point)
+                tmpLine.point1 = point
 
-    def addLine(self, line):
+    def add_line(self, line):
         self.lines.append(line)
 
+    def add_polyline(self, polyline):
+        for line in polyline.lines:
+            self.add_line(line)
+
     def divide_long_segments(self, max_length):
-        return None
+        new_polyline = Polyline()
+        new_polyline.data = self.data
+
+        for line in self.lines:
+            tmp_polyline = line.divide(max_length)
+            new_polyline.add_polyline(tmp_polyline)
+
+        return new_polyline
+
+    def get_object_for_json(self):
+        coordinates = []
+        was_first = False
+        for line in self.lines:
+            if not was_first:
+                coordinates.append([line.point1.x, line.point1.y])
+                was_first = True
+            coordinates.append([line.point2.x, line.point2.y])
+        self.data["geometry"]["coordinates"] = coordinates
+        return self.data
